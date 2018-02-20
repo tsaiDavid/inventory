@@ -1,10 +1,10 @@
 {
    "type": "postgres",
    "host": "localhost",
-   "port": 5432,
-   "username": "test",
-   "password": "test",
-   "database": "test",
+   "port": 2345,
+   "username": "loanermbp3",
+   "password": "",
+   "database": "inventory",
    "synchronize": true,
    "logging": false,
    "entities": [

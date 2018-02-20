@@ -1,29 +1,33 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, PrimaryColumn, Column, ManyToOne } from "typeorm";
+import { Asset } from './Asset';
 import { Employee } from './Employee';
 
 
 @Entity()
 export class EmployeeAsset {
 
-    @PrimaryGeneratedColumn()
-    id: number;
+    // Primary/Foreign Key
+    @ManyToOne(type => Asset, asset => asset.employeeAssets)
+    asset: Asset;
 
+    // Primary/Foreign Key
     @ManyToOne(type => Employee, employee => employee.employeeAssets)
     employee: Employee;
 
-    // @Column({ type: "date" })
-    // dateOut: string;
+    // Primary Key
+    @PrimaryColumn({ type: "timestamp" })
+    dateOut: string;
 
-    // @Column({ type: "date" })
-    // dateReturned: string;
+    @Column({ type: "timestamp", nullable: true })
+    dateReturned?: string;
 
     @Column()
     conditionOut: string;
 
-    // @Column()
-    // conditionReturned: string;
+    @Column({ nullable: true })
+    conditionReturned: string;
 
-    // @Column({ type: "text" })
-    // otherDetails: string;
+    @Column({ type: "text", nullable: true })
+    otherDetails?: string;
 
 }

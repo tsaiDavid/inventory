@@ -4,6 +4,7 @@ import { EmployeeAsset } from './EmployeeAsset';
 @Entity()
 export class Employee {
 
+    // Utilize @PrimaryColumn for non auto-incremented id's
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -16,7 +17,7 @@ export class Employee {
     @Column()
     lastName: string;
 
-    // @Column()
-    // department: string;
+    @Column()
+    department: string;
 
 }

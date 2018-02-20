@@ -43,6 +43,7 @@ createConnection().then(async connection => {
     console.log("Inserting a new asset into the database...");
     const asset = new Asset();
     asset.description = "2018 Macbook Pro";
+    asset.assetType = hardware;
     asset.otherDetails = "Optional details about this Macbook Pro";
     await connection.manager.save(asset);
 

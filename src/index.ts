@@ -1,21 +1,31 @@
 import "reflect-metadata";
 import {createConnection} from "typeorm";
-import {User} from "./entity/User";
+import { Employee } from './entity/Employee';
+import { EmployeeAsset } from './entity/EmployeeAsset';
+
 
 createConnection().then(async connection => {
 
     console.log("Inserting a new user into the database...");
-    const user = new User();
-    user.firstName = "Timber";
-    user.lastName = "Saw";
-    user.age = 25;
-    await connection.manager.save(user);
-    console.log("Saved a new user with id: " + user.id);
+    console.log("Inserting a new employee into the database...");
+    const employee = new Employee();
+    employee.firstName = "John";
+    employee.lastName = "Smith";
+
+    await connection.manager.save(employee);
+    console.log("Saved a new user with id: " + employee.employeeId);
+
+    const employeeAsset = new EmployeeAsset();
+    employeeAsset.conditionOut = "new";
+
+    await connection.manager.save(employeeAsset);
+
+    console.log("Loading employeeAssets from the database...");
+    const employeeAssets = await connection.manager.find(EmployeeAsset);
+    console.log("Loaded employeeAssets: ", employeeAssets);
     
-    console.log("Loading users from the database...");
-    const users = await connection.manager.find(User);
-    console.log("Loaded users: ", users);
-     
-    console.log("Here you can setup and run express/koa/any other framework.");
+    console.log("Loading employees from the database...");
+    const employees = await connection.manager.find(Employee);
+    console.log("Loaded employees: ", employees);
     
 }).catch(error => console.log(error));

@@ -19,7 +19,7 @@ export class EmployeeAsset {
     dateOut: string;
 
     @Column({ type: "timestamp", nullable: true })
-    dateReturned?: string;
+    dateReturned: string;
 
     @Column()
     conditionOut: string;
@@ -28,6 +28,6 @@ export class EmployeeAsset {
     conditionReturned: string;
 
     @Column({ type: "text", nullable: true })
-    otherDetails?: string;
+    otherDetails: string;
 
 }

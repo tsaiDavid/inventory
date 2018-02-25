@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import {createConnection} from "typeorm";
+import { createConnection } from "typeorm";
 import { Employee } from './entity/Employee';
 import { EmployeeAsset } from './entity/EmployeeAsset';
 import { Asset } from './entity/Asset';

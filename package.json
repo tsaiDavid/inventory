@@ -9,10 +9,13 @@
    },
    "dependencies": {
       "pg": "^7.3.0",
+      "postgraphql": "^3.5.6",
       "reflect-metadata": "^0.1.10",
       "typeorm": "0.1.12"
    },
    "scripts": {
-      "start": "ts-node src/index.ts"
+      "start": "ts-node src/index.ts",
+      "postgraphql": "postgraphql -c postgres://localhost:5432/inventory --cors --watch"
    }
 }
+

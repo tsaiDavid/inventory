@@ -1,19 +1,21 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { connect } from 'dva';
 import { Card, Badge, Table, Divider } from 'antd';
 import PageHeaderLayout from '../../layouts/PageHeaderLayout';
 import DescriptionList from '../../components/DescriptionList';
 import styles from './BasicProfile.less';
+import AssetPane from '../../components/AssetPane';
 
 import gql from 'graphql-tag';
 import { Query } from 'react-apollo';
 
 const query = gql`
 {
-  allEmployees {
-    nodes {
-      firstName
-    }
+  employeeById(id: 1) {
+		id
+    firstName
+    lastName
+    department
   }
 }`
 
@@ -143,51 +145,26 @@ export default class BasicProfile extends Component {
         {({ loading, error, data }) => {
           if (loading) return <div>Loading...</div>
           if (error) return <div>Error...</div>
-          
+
+          const { firstName, lastName, id, department } = data.employeeById
+
           return (
-            <Card bordered={false}>
-              <DescriptionList size="large" title="Users" style={{ marginBottom: 32 }}>
-                <Description term="User">Username</Description>
-                <Description term="id">id</Description>
-              </DescriptionList>          
-            </Card>
+            <Fragment>
+              {/* Personal Details of User */}
+              <Card bordered={false}>
+                <DescriptionList size="large" title="Personal Details" style={{ marginBottom: 32 }}>
+                  <Description term="Employee Name">{`${firstName} ${lastName}`}</Description>
+                  <Description term="EID">{id}</Description>
+                  <Description term="Department">{department}</Description>
+                </DescriptionList>          
+              </Card>
+              <br />
+              {/* List View of Assets */}
+              <AssetPane employeeId={id} />
+            </Fragment>
           )
         }}
       </Query>
-      // <PageHeaderLayout title="Some Profile">
-      //   <Card bordered={false}>
-      //     <DescriptionList size="large" title="Users" style={{ marginBottom: 32 }}>
-      //       <Description term="User">Username</Description>
-      //       <Description term="id">id</Description>
-      //     </DescriptionList>
-      //     {/* <Divider style={{ marginBottom: 32 }} />
-      //     <DescriptionList size="large" title="用户信息" style={{ marginBottom: 32 }}>
-      //       <Description term="用户姓名">付小小</Description>
-      //       <Description term="联系电话">18100000000</Description>
-      //       <Description term="常用快递">菜鸟仓储</Description>
-      //       <Description term="取货地址">浙江省杭州市西湖区万塘路18号</Description>
-      //       <Description term="备注">无</Description>
-      //     </DescriptionList>
-      //     <Divider style={{ marginBottom: 32 }} />
-      //     <div className={styles.title}>退货商品</div>
-      //     <Table
-      //       style={{ marginBottom: 24 }}
-      //       pagination={false}
-      //       loading={loading}
-      //       dataSource={goodsData}
-      //       columns={goodsColumns}
-      //       rowKey="id"
-      //     />
-      //     <div className={styles.title}>退货进度</div>
-      //     <Table
-      //       style={{ marginBottom: 16 }}
-      //       pagination={false}
-      //       loading={loading}
-      //       dataSource={basicProgress}
-      //       columns={progressColumns}
-      //     /> */}
-      //   </Card>
-      // </PageHeaderLayout>
     );
   }
 }
